@@ -46,6 +46,7 @@ router.get('/api/items', function(req, res, next) {
 router.get('/api/items/:id', async function(req, res, next) {
   const id = req.params.id
   let response = {}
+  let category_id= ''
 
   await axios.get(`https://api.mercadolibre.com/items/${id}`)
     .then(function(d) {
@@ -53,6 +54,7 @@ router.get('/api/items/:id', async function(req, res, next) {
 
       const price = String(data.price).split('.')
       response = {
+        categories: [],
         item: {
           id: data.id,
           title: data.title,
@@ -67,7 +69,9 @@ router.get('/api/items/:id', async function(req, res, next) {
           sold_quantity: data.sold_quantity,
         }
       }
-      return response
+
+      category_id = data.category_id
+      return {response, category_id}
     })
 
   await axios.get(`https://api.mercadolibre.com/items/${id}/description`)
@@ -77,6 +81,18 @@ router.get('/api/items/:id', async function(req, res, next) {
       return response
     })
 
+  await axios.get(`https://api.mercadolibre.com/categories/${category_id}`)
+  .then(function(d) {
+    const data = d.data
+    const categories = data.path_from_root
+
+    categories.forEach(category => {
+      response.categories.push(category.name)  
+    })
+
+    return response
+  })
+  
   res.json(response)
 })
 

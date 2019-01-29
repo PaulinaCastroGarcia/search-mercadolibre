@@ -2,12 +2,16 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   background-color: #EEEEEE;
 }
 
-.searchbar, .items {
-  padding: 0 9%;
+.searchbar, .items, .item-details {
+  padding: 0 15%;
 }
 
 button:hover {
@@ -21,8 +25,11 @@ button:hover {
   justify-content: center;
   align-items: center;
 }
-.searchbar .logo {
-  height: 60%;
+.searchbar a {
+  height: 35px;
+}
+.searchbar a .logo {
+  height: 100%;
   margin-right: 20px;
 }
 .searchbar form {
@@ -31,7 +38,7 @@ button:hover {
   align-items: center;
   flex-grow: 1;
 }
-.searchbar form button, .searchbar form input {
+.searchbar form a, .searchbar form input, .searchbar form button {
   height: 35px;
 }
 .searchbar form button {
@@ -50,6 +57,41 @@ button:hover {
 }
 .searchbar form input:focus, .searchbar form button:focus {
   outline-color: hotpink;
+}
+
+.category {
+  color: gray;
+  font-size: 12px;
+  font-weight: bolder;
+  margin: 0;
+  padding: 15px 0;
+}
+
+.product {
+  height: 24vh;
+  padding: 3vh 15px;
+  background-color: white;
+  border-bottom: 1px solid #e9e9e9;
+  display: flex;
+}
+.product img {
+  border-radius: 3px;
+}
+.product .product-info {
+  margin-left: 24px;
+  width: 33%;
+  color: #3a3a3a;
+}
+.product .product-info span {
+  font-size: 1.4em;
+  font-weight: 500;
+}
+.product .product-location {
+  font-size: 12px;
+  color: gray;
+  text-align: right;
+  margin-right: 5%;
+  flex-grow: 1;
 }
 
 /*# sourceMappingURL=App.css.map */

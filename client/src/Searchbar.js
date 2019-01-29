@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.png';
 import { Link } from "react-router-dom";
+import {withRouter} from 'react-router'
 
 class Searchbar extends Component {
   constructor(props) {
@@ -15,15 +16,18 @@ class Searchbar extends Component {
   render() {
     return (
       <div className="searchbar">
-        <img className="logo" src={logo} alt="logo"/>
+        <Link to="/"> <img className="logo" src={logo} alt="logo"/></Link>
+        
 
-        <form onSubmit={this.handleSubmit}>
+        <form>
 						<input 
               type="text"
               placeholder="what are you looking for?"
               value={this.state.search}
-              onChange={this.handleChange}>
+              onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}>
             </input>
+
             <Link to={`/items?search=${this.state.search}`}>
               <button>
                 <img src={this.seachIcon} alt="search icon"/>
@@ -40,11 +44,12 @@ class Searchbar extends Component {
     })
   }
 
-  handleSubmit = () => {
-    this.setState({
-      search: ''
-    })
+  handleKeyDown = (e) =>{
+    if (e.keyCode === 13) {
+      this.props.history.push(`/items?search=${this.state.search}`)
+    }
   }
 }
 
-export default Searchbar;
+// export default Searchbar;
+export default withRouter(Searchbar);

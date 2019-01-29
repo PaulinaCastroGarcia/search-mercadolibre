@@ -17,7 +17,7 @@ router.get('/api/items', function(req, res, next) {
     .then(function(d) {
       const data = d.data
       const response = {
-        categories: data.available_filters[0].values[0].name,
+        category: data.available_filters[0].values[0].name,
         items: []
       }
 
@@ -34,7 +34,8 @@ router.get('/api/items', function(req, res, next) {
           },
           picture: item.thumbnail,
           condition: item.condition,
-          free_shipping: item.shipping.free_shipping
+          free_shipping: item.shipping.free_shipping,
+          seller_address: item.seller_address.state.name
         })
       });
     
@@ -48,51 +49,43 @@ router.get('/api/items/:id', async function(req, res, next) {
   let response = {}
   let category_id= ''
 
-  await axios.get(`https://api.mercadolibre.com/items/${id}`)
-    .then(function(d) {
-      const data = d.data
+  let d = await axios.get(`https://api.mercadolibre.com/items/${id}`)
+  let data = d.data
 
-      const price = String(data.price).split('.')
-      response = {
-        categories: [],
-        item: {
-          id: data.id,
-          title: data.title,
-          price: {
-            currency: data.currency_id,
-            amount: parseInt(price[0]),
-            decimals: price[1] ? parseInt(price[1]) : 0,
-          },
-          picture: data.pictures.secure_url,
-          condition: data.condition,
-          free_shipping: data.shipping.free_shipping,
-          sold_quantity: data.sold_quantity,
-        }
-      }
+  const price = String(data.price).split('.')
+  console.log(price)
+  response = {
+    categories: [],
+    item: {
+      id: data.id,
+      title: data.title,
+      price: {
+        currency: data.currency_id,
+        amount: parseInt(price[0]),
+        decimals: price[1] ? parseInt(price[1]) : 0,
+      },
+      picture: data.pictures[0].secure_url,
+      condition: data.condition,
+      free_shipping: data.shipping.free_shipping,
+      sold_quantity: data.sold_quantity,
+      seller_address: data.seller_address.state.name
+    }
+  }
 
-      category_id = data.category_id
-      return {response, category_id}
-    })
+  category_id = data.category_id
 
-  await axios.get(`https://api.mercadolibre.com/items/${id}/description`)
-    .then(function(d) {
-      const data = d.data
-      response.item.description = data.plain_text
-      return response
-    })
+  d = await axios.get(`https://api.mercadolibre.com/items/${id}/description`)
+  data = d.data
+  response.item.description = data.plain_text
 
-  await axios.get(`https://api.mercadolibre.com/categories/${category_id}`)
-  .then(function(d) {
-    const data = d.data
-    const categories = data.path_from_root
+  d = await axios.get(`https://api.mercadolibre.com/categories/${category_id}`)
+  data = d.data
+  const categories = data.path_from_root
 
-    categories.forEach(category => {
-      response.categories.push(category.name)  
-    })
-
-    return response
+  categories.forEach(category => {
+    response.categories.push(category.name)  
   })
-  
+ 
   res.json(response)
 })
 

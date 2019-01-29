@@ -6,10 +6,10 @@ class Item extends Component {
   render() {
     return (
       <Link to={`/items/${this.props.p.id}`}>
-        <div className="product">
+        <div className="item">
           <img src={this.props.p.picture} alt="product"/>
 
-          <div className="product-info">
+          <div className="item-info">
             <span>
               {this.props.p.price.currency === 'ARS' && '$'}
               {this.props.p.price.amount}
@@ -18,7 +18,7 @@ class Item extends Component {
             <p>{this.props.p.title}</p>
           </div>
 
-          <p className="product-location">{this.props.p.seller_address}</p>
+          <p className="item-location">{this.props.p.location}</p>
         </div>
       </Link>
     );

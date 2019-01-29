@@ -35,7 +35,7 @@ router.get('/api/items', function(req, res, next) {
           picture: item.thumbnail,
           condition: item.condition,
           free_shipping: item.shipping.free_shipping,
-          seller_address: item.seller_address.state.name
+          location: item.seller_address.state.name
         })
       });
     
@@ -67,8 +67,7 @@ router.get('/api/items/:id', async function(req, res, next) {
       picture: data.pictures[0].secure_url,
       condition: data.condition,
       free_shipping: data.shipping.free_shipping,
-      sold_quantity: data.sold_quantity,
-      seller_address: data.seller_address.state.name
+      sold_quantity: data.sold_quantity
     }
   }
 

@@ -25,22 +25,34 @@ class ItemDetails extends Component {
   }
 
   render() {
+    let freeShippingIcon
+    if (this.state.item.free_shipping) {
+      freeShippingIcon = <i className="fas fa-truck"></i>
+    }
+
     if (this.state.item === '') {
       return <p>loading...</p>
     } 
 
     return (
-      <div className="item-details">
+      <div className="item-details-container">
         <Breadcrumb categories={this.state.categories}/>
-        {/* <img src={this.state.item.picture} alt=""/>
-        {this.state.item.condition}
-        {this.state.item.sold_quantity}
-        { this.state.item.free_shipping && <i className="fas fa-truck"></i> }
-        {this.state.item.title}
-        {this.state.item.price.currency}
-        {this.state.item.price.amount}
-        {this.state.item.price.decimals}
-        {this.state.item.description} */}
+        <div className="item-details">
+          <div className="item-details-description">
+            <img src={this.state.item.picture} alt=""/>
+            <h6>Descripcion del producto</h6>
+            <p>{this.state.item.description}</p>
+          </div>
+          <div className="item-details-info">
+            <p>{this.state.item.condition} - {this.state.item.sold_quantity} vendidos {freeShippingIcon}
+            </p>
+            <h3>{this.state.item.title}</h3>
+            <h4>{this.state.item.price.currency} {this.state.item.price.amount}{this.state.item.price.decimals}</h4>
+            <button>Comprar</button>
+          </div>
+        </div>
+        
+        
       </div>
     );
   }

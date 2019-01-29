@@ -48,7 +48,7 @@ class Items extends Component {
     return (
       <div className="items">
         <p className="category">{this.state.category}</p>
-        <div className="products-container">
+        <div className="items-container">
           {this.items}
         </div>
       </div>

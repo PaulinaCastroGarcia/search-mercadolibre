@@ -12,17 +12,21 @@ $accent-color: hotpink;
   box-sizing: border-box;
 }
 
+body {
+  background-color: $background-color;
+  font-family: Roboto,'Open Sans', 'Helvetica Neue', sans-serif
+}
+
 a {
   text-decoration: none;
 }
 
-body {
-	background-color: $background-color;
+img {
+  border-radius: 3px;
 }
 
-.searchbar, .items, .item-details {
+.searchbar, .items, .item-details-container {
 	padding: 0 15%;
-	// padding: 0 9%;
 }
 
 button:hover {
@@ -67,23 +71,26 @@ button:hover {
 }
 
 .category {
-color: gray;
-font-size: 12px;
-font-weight: bolder;
-margin: 0;
-padding: 15px 0;
+  color: gray;
+  font-size: 12px;
+  margin: 0;
+  padding: 15px 0;
 }
 
-.product {
-height: 24vh;
+.items .category {
+  font-weight: bold;
+}
+
+.item, .item-details {
 padding: 3vh 15px;
 background-color: white;
 border-bottom: 1px solid rgb(233, 233, 233);
 display: flex;
-  img {
-    border-radius: 3px;
-  }
-  .product-info {
+}
+
+.item {
+  height: 24vh;
+  .item-info {
     margin-left: 24px;
     width: 33%;
     color: #3a3a3a;
@@ -92,11 +99,67 @@ display: flex;
       font-weight: 500;
     }
   }
-  .product-location {
+  .item-location {
     font-size: 12px;
     color: gray;
     text-align: right;
     margin-right: 5%;
     flex-grow: 1;
+  }
+}
+
+ul {
+ list-style-type: none;
+ display: flex;
+ li {
+   margin-right: 9px;
+ }
+ li::after {
+   content: ' > ';
+   color: lightgray;
+   margin-left: 9px;
+ }
+ li:last-of-type {
+  font-weight: bolder;
+  &::after {
+    content: '';
+   }
+ }
+}
+
+.item-details {
+  margin-bottom: 3vh;
+  p {
+    font-size: 12px;
+  }
+  .item-details-description {
+    width: 60%;
+    img {
+      width: 100%;
+    }
+    h6 {
+      font-size: 1.3em;
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+    p {
+      color: gray;
+    }
+  }
+  .item-details-info {
+    width: 40%;
+    margin: 0 24px;
+    h4 {
+      font-size: 1.5em;
+      font-weight: normal;
+    }
+    button {
+      border: none;
+      background-color: #3383F9;
+      width: 100%;
+      padding: 12px;
+      border-radius: 3px;
+      color: white;
+    }
   }
 }

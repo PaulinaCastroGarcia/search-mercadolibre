@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #EEEEEE;
+}
+
+.searchbar, .items {
+  padding: 0 9%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.searchbar {
+  background-color: lightpink;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.searchbar .logo {
+  height: 60%;
+  margin-right: 20px;
+}
+.searchbar form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+.searchbar form button, .searchbar form input {
+  height: 35px;
+}
+.searchbar form button {
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 0 3px 3px 0;
+}
+.searchbar form button img {
+  height: 100%;
+}
+.searchbar form input {
+  width: 100%;
+  border: none;
+  border-radius: 3px 0 0 3px;
+  padding-left: 12px;
+}
+.searchbar form input:focus, .searchbar form button:focus {
+  outline-color: hotpink;
+}
+
+/*# sourceMappingURL=App.css.map */

@@ -1,0 +1,60 @@
+$background-color: #EEEEEE;
+$primary-color: lightpink;
+$accent-color: hotpink;
+
+@mixin display-flex($justify-content, $align-items) {
+  display: flex;
+  justify-content: $justify-content;
+	align-items: $align-items;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+	background-color: $background-color;
+}
+
+.searchbar, .items {
+	// padding: 0 15%;
+	padding: 0 9%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.searchbar {
+	background-color: $primary-color;
+	height: 50px;
+  @include display-flex(center,center);
+  .logo {
+    height: 60%;
+    margin-right: 20px;
+  }
+  form {
+    @include display-flex(center,center);
+    flex-grow: 1;
+    button, input {
+      height: 35px;
+    }
+    button {
+      background-color: white;
+      border: 1px solid white;
+      border-radius: 0 3px 3px 0;
+      img {
+        height: 100%;
+      }
+    }    
+    input {
+      width: 100%;
+      border: none;
+      border-radius: 3px 0 0 3px;
+      padding-left: 12px;
+    }
+    input:focus, button:focus {
+      outline-color: $accent-color;
+    }
+  }
+}

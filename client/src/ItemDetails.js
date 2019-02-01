@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Breadcrumb from './Breadcrumb'
-
+import Price from "./Price";
 
 class ItemDetails extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class ItemDetails extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3001/api/items/${this.props.match.params.id}`)
+    fetch('process.env.REACT_APP_API_BASE' + `/api/items/${this.props.match.params.id}`)
     .then((res) => res.json())
     .then((data) => {
       this.setState({
@@ -25,34 +25,46 @@ class ItemDetails extends Component {
   }
 
   render() {
-    let freeShippingIcon
-    if (this.state.item.free_shipping) {
-      freeShippingIcon = <i className="fas fa-truck"></i>
-    }
-
     if (this.state.item === '') {
-      return <p>loading...</p>
+      return(
+        <div className="loader-container">
+          <p className="loader"></p>
+        </div>
+      )
     } 
+
+    let decimal = ''
+    if (this.state.item.price.decimals !== 0) {
+      decimal = this.state.item.price.decimals
+      if (this.state.item.price.decimals.toString().length === 1) {
+        decimal = this.state.item.price.decimals.toString() + '0'
+      }
+    }
 
     return (
       <div className="item-details-container">
         <Breadcrumb categories={this.state.categories}/>
+        
         <div className="item-details">
           <div className="item-details-description">
             <img src={this.state.item.picture} alt=""/>
             <h6>Descripcion del producto</h6>
-            <p>{this.state.item.description}</p>
+            <p>{this.state.item.description !== '' ? this.state.item.description : 'El vendedor no incluyó una descripción del producto'}</p>
           </div>
+
           <div className="item-details-info">
-            <p>{this.state.item.condition} - {this.state.item.sold_quantity} vendidos {freeShippingIcon}
+            <p>
+              {this.state.item.condition === 'new' ? 'Nuevo - ' : 'Usado - '}
+              {this.state.item.sold_quantity} vendidos
             </p>
             <h3>{this.state.item.title}</h3>
-            <h4>{this.state.item.price.currency} {this.state.item.price.amount}{this.state.item.price.decimals}</h4>
+            <div className="price">
+              <Price price={this.state.item.price}/>
+              <span className="decimals">{decimal}</span>
+            </div>
             <button>Comprar</button>
           </div>
         </div>
-        
-        
       </div>
     );
   }

@@ -3,8 +3,8 @@ import './App.css';
 
 class Breadcrumb extends Component {
   render() {
-    categories = this.props.categories
-    let categories = categories.map((c) => <li>{c}</li>)
+    let categories = this.props.categories
+    categories = categories.map((c,i) => <li key={i}>{c}</li>)
     
     return (
       <ul className="category">

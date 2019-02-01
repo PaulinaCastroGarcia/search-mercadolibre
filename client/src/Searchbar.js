@@ -9,7 +9,7 @@ class Searchbar extends Component {
     this.state = {
       search: ''
     }
-
+    
     this.seachIcon = "https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-512.png"
   }
 
@@ -51,5 +51,4 @@ class Searchbar extends Component {
   }
 }
 
-// export default Searchbar;
 export default withRouter(Searchbar);

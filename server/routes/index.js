@@ -53,7 +53,6 @@ router.get('/api/items/:id', async function(req, res, next) {
   let data = d.data
 
   const price = String(data.price).split('.')
-  console.log(price)
   response = {
     categories: [],
     item: {

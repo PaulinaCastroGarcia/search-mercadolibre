@@ -19,7 +19,7 @@ class Items extends Component {
 
     this.lastSearch = this.search
     
-    fetch('process.env.REACT_APP_API_BASE' + `/api/items?q=${this.search}`)
+    fetch(process.env.REACT_APP_API_BASE + `/api/items?q=${this.search}`)
     .then((res) => res.json())
     .then((data) => {
       this.setState({

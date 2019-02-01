@@ -14,7 +14,7 @@ class ItemDetails extends Component {
   }
 
   componentDidMount() {
-    fetch('process.env.REACT_APP_API_BASE' + `/api/items/${this.props.match.params.id}`)
+    fetch(process.env.REACT_APP_API_BASE + `/api/items/${this.props.match.params.id}`)
     .then((res) => res.json())
     .then((data) => {
       this.setState({
